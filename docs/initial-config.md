@@ -87,3 +87,20 @@ Add next json
 ```
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
+```
+
+- npm i -D jest @types/jest ts-jest
+- create jest.config.js file
+```js
+module.exports = {
+  roots: ['<rootDir>/src'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.{ts,tsx}'
+  ],
+  coverageDirectory: 'coverage',
+  testEnvironment: 'node',
+  transform: {
+    '.+\\.(ts|tsx)$': 'ts-jest'
+  }
+}
+```
