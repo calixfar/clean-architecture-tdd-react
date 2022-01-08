@@ -66,3 +66,24 @@ Create .eslint.json file and add the next json
 ```
 
 Create .eslintignore file and add the same lines that .gitignore file
+
+npm i -D lint-staged husky
+
+create .lintstagedrc.json
+
+Add next json
+
+```json
+{
+  "*.{ts,tsx}": [
+    "eslint 'src/** --fix'"
+  ]
+}
+```
+
+- npx husky install
+- touch pre-commit.sh in folder in .husky
+-Add next code 
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
