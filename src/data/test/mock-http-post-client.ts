@@ -1,11 +1,14 @@
-import { HttpPostClient } from "@/data/protocols"
+import { HttpPostClient, HttpResponse } from "@/data/protocols"
 
 export class HttpPostClientSpy implements HttpPostClient {
   url?: string
   body: object
-  async post({ url, body }: HttpPostClient.Params): Promise<void> {
+  response: HttpResponse = {
+    statusCode: HttpResponse.HttpStatusCode.noContent
+  }
+  async post({ url, body }: HttpPostClient.Params): Promise<HttpResponse> {
     this.url = url
     this.body = body
-    return Promise.resolve()
+    return Promise.resolve(this.response)
   }
 }
