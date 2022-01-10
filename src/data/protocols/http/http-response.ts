@@ -1,8 +1,8 @@
 
 
-export type HttpResponse = {
+export type HttpResponse<T> = {
   statusCode: HttpResponse.HttpStatusCode
-  body?: HttpResponse.Body
+  body?: HttpResponse.Body<T>
 }
 
 export namespace HttpResponse {
@@ -14,5 +14,5 @@ export namespace HttpResponse {
     serverError = 500,
     noContent = 204
   }
-  export type Body = any
+  export type Body<T> = T
 }
