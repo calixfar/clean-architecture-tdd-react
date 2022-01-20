@@ -35,9 +35,14 @@ module.exports = {
     }]
   },
   devServer: {
-    contentBase: './public',
-    writeToDisk: true,
+    devMiddleware: {
+      writeToDisk: true
+    },
+    static: {
+      directory: './public'
+    },
     historyApiFallback: true,
+    port: 8080,
     open: true
   },
   externals: {
