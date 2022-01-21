@@ -5,7 +5,7 @@ import Context from '@/presentation/contexts/form/form-context'
 
 const FormStatus = () => {
 
-  const { isLoading, errorMessage } = useContext(Context)
+  const { state: { isLoading, errorMessage }} = useContext(Context)
 
   return (
     <div role="status" className={Styles.errorWrap}>

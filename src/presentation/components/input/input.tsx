@@ -4,18 +4,26 @@ import Context from '@/presentation/contexts/form/form-context'
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-const Footer: React.FC<Props> = (props) => {
-  const state = useContext(Context)
+const Input: React.FC<Props> = (props) => {
+  const { state, setState } = useContext(Context)
   const error = state[`${props.name}Error`]
   const status = '🔴'
   const title = error
 
+  
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    setState({
+      ...state,
+      [target.name]: target.value
+    })
+  }
+  
 return (
     <div className={Styles.inputWrap}>
-      <input autoComplete="off" {...props} />
+      <input data-testid={props.name} autoComplete="off" {...props} onChange={handleChange} />
       <span data-testid={`${props.name}-status`} title={title} className={Styles.status}>{status}</span>
     </div>
   )
 }
 
-export default memo(Footer)
+export default memo(Input)
