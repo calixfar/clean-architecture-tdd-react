@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoginHeader, Spinner } from '@/presentation/components'
+import { Footer, LoginHeader, Spinner } from '@/presentation/components'
 import Styles from './login-styles.scss'
 
 const Login: React.FC = () => {
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
           <span data-testid="main-error" className={Styles.error}>Error</span>
         </div>
       </form>
-      <footer className={Styles.footer} />
+      <Footer />
     </div>
   )
 };
