@@ -9,17 +9,22 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ validation }) => {
-const [state, setState] = useState({
-  email: '',
-  isLoading: false,
-  mainError: '',
-  emailError: 'Campo obligatorio',
-  passwordError: 'Campo obligatorio'
-})
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    isLoading: false,
+    mainError: '',
+    emailError: 'Campo obligatorio',
+    passwordError: 'Campo obligatorio'
+  })
 
-useEffect(() => {
-  validation.validate({email: state.email})
-}, [state.email])
+  useEffect(() => {
+    validation.validate({email: state.email})
+  }, [state.email])
+
+  useEffect(() => {
+    validation.validate({password: state.password})
+  }, [state.password])
 
   return (
     <div className={Styles.login}>
