@@ -9,5 +9,11 @@ describe('Login', () => {
     expect(errorWrap.childElementCount).toBe(0)
     const submitButton = screen.getByRole('button') as HTMLButtonElement
     expect(submitButton.disabled).toBe(true)
+    const emailStatusInput = screen.getByTestId('email-status')
+    expect(emailStatusInput.title).toBe('Campo obligatorio')
+    expect(emailStatusInput.textContent).toBe('🔴')
+    const passwordStatusInput = screen.getByTestId('password-status')
+    expect(passwordStatusInput.title).toBe('Campo obligatorio')
+    expect(passwordStatusInput.textContent).toBe('🔴')
   })
 })
