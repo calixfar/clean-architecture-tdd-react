@@ -13,6 +13,7 @@
   "author": "Luis Santiago",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/react": "^12.1.2",
     "@types/axios": "^0.14.0",
     "@types/faker": "^4.1.11",
     "@types/jest": "^27.4.0",
