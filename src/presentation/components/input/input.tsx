@@ -6,7 +6,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 const Footer: React.FC<Props> = (props) => {
 return (
     <div className={Styles.inputWrap}>
-      <input {...props} />
+      <input autoComplete="off" {...props} />
       <span className={Styles.status}>🔴</span>
     </div>
   )
