@@ -1,22 +1,10 @@
 import React from 'react'
 import { screen, render, fireEvent } from '@testing-library/react'
 import Login from './login'
-import { Validation } from '@/presentation/protocols/validation'
+import { ValidationSpy } from '@/presentation/test'
 
 type SutTypes = {
   validationSpy: ValidationSpy
-}
-
-class ValidationSpy implements Validation {
-  errorMessage: string
-  fieldName: string
-  fieldValue: string
-
-  validate(fieldName: string, fieldValue: string): string {
-    this.fieldName = fieldName
-    this.fieldValue = fieldValue
-    return this.errorMessage
-  }
 }
 
 const makeSut = (): SutTypes => {
@@ -27,6 +15,7 @@ const makeSut = (): SutTypes => {
     validationSpy
   }
 }
+
 describe('Login', () => {
   test('should start with initial state', () => {
     makeSut()
@@ -49,6 +38,7 @@ describe('Login', () => {
     expect(validationSpy.fieldName).toEqual('email')
     expect(validationSpy.fieldValue).toEqual('any_email')
   })
+
   test('should call Validation with correct password', () => {
     const { validationSpy } = makeSut()  
     const passwordInput = screen.getByTestId('password')
