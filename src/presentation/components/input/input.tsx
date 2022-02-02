@@ -7,8 +7,8 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 const Input: React.FC<Props> = (props) => {
   const { state, setState } = useContext(Context)
   const error = state[`${props.name}Error`]
-  const status = '🔴'
-  const title = error
+  const status = error ? '🔴' : '🟢'
+  const title = error || 'Correcto'
 
   
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
