@@ -62,14 +62,15 @@ describe('Login', () => {
     expect(emailStatus.title).toBe('Correcto')
     expect(emailStatus.textContent).toBe('🟢')
   })
+})
 
-  test('should show valid password state if Validation succeeds', () => {
-    const { validationStub } = makeSut()  
-    validationStub.errorMessage = ''
-    const passwordInput = screen.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: faker.internet.password() }})
-    const passwordStatus = screen.getByTestId('password-status')
-    expect(passwordStatus.title).toBe('Correcto')
-    expect(passwordStatus.textContent).toBe('🟢')
-  })
+test('should enable submit button if form is valid', () => {
+  const { validationStub } = makeSut()  
+  validationStub.errorMessage = ''
+  const passwordInput = screen.getByTestId('password')
+  fireEvent.input(passwordInput, { target: { value: faker.internet.password() }})
+  const emailInput = screen.getByTestId('password')
+  fireEvent.input(emailInput, { target: { value: faker.internet.email() }})
+  const submitButton = screen.getByRole('button') as HTMLButtonElement
+  expect(submitButton.disabled).toBe(false)
 })
