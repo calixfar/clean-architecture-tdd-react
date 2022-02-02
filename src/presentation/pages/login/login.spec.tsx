@@ -3,9 +3,22 @@ import { screen, render, fireEvent } from '@testing-library/react'
 import Login from './login'
 import { ValidationStub } from '@/presentation/test'
 import faker from 'faker'
+import { Authentication } from '@/domain/usecases'
+import { AccountModel } from '@/domain/models'
+import { mockAccountModel } from '@/domain/test'
+
+class AuthenticationSpy implements Authentication {
+  account = mockAccountModel()
+  params: Authentication.Params
+  async auth (params: Authentication.Params): Promise<AccountModel> {
+    this.params = params
+    return Promise.resolve(this.account)
+  };
+}
 
 type SutTypes = {
   validationStub: ValidationStub
+  authenticationSpy: AuthenticationSpy
 }
 
 type SutParams = {
@@ -15,11 +28,17 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
-
-  render(<Login validation={validationStub} />)
+  const authenticationSpy = new AuthenticationSpy()
+  render(
+    <Login 
+      validation={validationStub} 
+      authentication={authenticationSpy}
+    />
+  )
 
   return {
-    validationStub
+    validationStub,
+    authenticationSpy
   }
 }
 
@@ -88,5 +107,21 @@ describe('Login', () => {
     fireEvent.click(submitButton)
     const spinner = screen.getByTestId('spinner')
     expect(spinner).toBeDefined()
+  })
+  
+  test('should call Authentication with correct values', () => {
+    const { authenticationSpy } = makeSut()
+    const email = faker.internet.email()
+    const emailInput = screen.getByTestId('email')
+    fireEvent.input(emailInput, { target: { value: email}})
+    const passwordInput = screen.getByTestId('password')
+    const password = faker.internet.password()
+    fireEvent.input(passwordInput, { target: { value: password}})
+    const submitButton = screen.getByRole('button') as HTMLButtonElement
+    fireEvent.click(submitButton)
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
   })
 })
