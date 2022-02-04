@@ -5,12 +5,12 @@ import Context from '@/presentation/contexts/form/form-context'
 
 const FormStatus = () => {
 
-  const { state: { isLoading, errorMessage }} = useContext(Context)
+  const { state: { isLoading, mainError }} = useContext(Context)
 
   return (
     <div role="status" className={Styles.errorWrap}>
       { isLoading && <Spinner className={Styles.spinner} /> }
-      { errorMessage && <span className={Styles.error}>Error</span> }
+      { mainError && <span data-testid="mainError" className={Styles.error}>{mainError}</span> }
     </div>
   )
 };
