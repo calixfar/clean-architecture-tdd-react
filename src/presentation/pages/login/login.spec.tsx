@@ -1,4 +1,5 @@
 import React from 'react'
+import 'jest-localstorage-mock'
 import { screen, render, fireEvent, waitFor } from '@testing-library/react'
 import Login from './login'
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test'
@@ -55,6 +56,10 @@ const simulateStatusForField = (fieldName: string, validationError?: string): vo
 }
 
 describe('Login', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
   test('should start with initial state', () => {
     const validationError = faker.random.words()
     makeSut({validationError})
@@ -143,5 +148,13 @@ describe('Login', () => {
     const mainError = screen.getByTestId('mainError')
     expect(mainError.textContent).toBe(error.message)
     expect(errorWrap.childElementCount).toBe(1)
+  })
+
+  test('should add accessToken to localStorage on success', async () => {
+    const { authenticationSpy } = makeSut()
+    simulateValidSubmit()
+    const form = screen.getByRole('form')
+    await waitFor(() => form)
+    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
   })
 })
