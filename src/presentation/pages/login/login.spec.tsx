@@ -116,10 +116,19 @@ describe('Login', () => {
       password
     })
   })
+  
   test('should call once Authentication', () => {
     const { authenticationSpy } = makeSut()
     simulateValidSubmit()
     simulateValidSubmit()
     expect(authenticationSpy.callsCount).toBe(1)
+  })
+  
+  test('should not call Authentication if form is not valid', () => {
+    const validationError = faker.random.words()
+    const { authenticationSpy } = makeSut({validationError})
+    populateEmailField()
+    fireEvent.submit(screen.getByRole('form'))
+    expect(authenticationSpy.callsCount).toBe(0)
   })
 })
