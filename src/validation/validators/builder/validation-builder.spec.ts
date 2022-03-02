@@ -1,5 +1,5 @@
 import { FieldValidation } from '@/validation/protocols/field-validation'
-import { RequireFieldValidation } from '../require-filed/required-field-validation'
+import { RequiredFieldValidation } from '../required-filed/required-field-validation'
 
 class ValidationBuilder {
   private constructor (
@@ -12,7 +12,7 @@ class ValidationBuilder {
   }
 
   required (): ValidationBuilder {
-    this.validations.push(new RequireFieldValidation(this.fieldName))
+    this.validations.push(new RequiredFieldValidation(this.fieldName))
     return this
   }
 
@@ -24,6 +24,6 @@ class ValidationBuilder {
 describe('ValidationBuilder', () => {
   test('Should return RequiredFieldValidation', () => {
     const validations = ValidationBuilder.field('any_field').required().build()
-    expect(validations).toEqual([new RequireFieldValidation('any_field')])
+    expect(validations).toEqual([new RequiredFieldValidation('any_field')])
   })
 })
