@@ -19,8 +19,6 @@ const makeSut = (): SutTypes => {
   }
 }
 
-
-
 describe('AxiosHttpClient', () => {
   test('should call axios with correct vallues', async () => {
     const { sut, mockedAxios } = makeSut()
@@ -28,6 +26,7 @@ describe('AxiosHttpClient', () => {
     await sut.post(request)
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
   })
+  
   test('should return the correct statusCode and body', async () => {
     const { sut, mockedAxios } = makeSut()
     const httpResponse = await sut.post(mockPostRequest())
