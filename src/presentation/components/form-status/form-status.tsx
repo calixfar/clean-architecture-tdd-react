@@ -4,8 +4,7 @@ import Styles from './form-status.scss'
 import Context from '@/presentation/contexts/form/form-context'
 
 const FormStatus = () => {
-
-  const { state: { isLoading, mainError }} = useContext(Context)
+  const { state: { isLoading, mainError } } = useContext(Context)
 
   return (
     <div role="status" className={Styles.errorWrap}>
@@ -13,6 +12,6 @@ const FormStatus = () => {
       { mainError && <span data-testid="mainError" className={Styles.error}>{mainError}</span> }
     </div>
   )
-};
+}
 
 export default FormStatus

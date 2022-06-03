@@ -25,8 +25,8 @@ const makeSut = (params?: SutParams): SutTypes => {
   const authenticationSpy = new AuthenticationSpy()
   render(
     <Router history={history}>
-      <Login 
-        validation={validationStub} 
+      <Login
+        validation={validationStub}
         authentication={authenticationSpy}
       />
     </Router>
@@ -48,12 +48,12 @@ const simulateValidSubmit = async (email: string = faker.internet.email(), passw
 
 const populateEmailField = (email: string = faker.internet.email()): void => {
   const emailInput = screen.getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: email}})
+  fireEvent.input(emailInput, { target: { value: email } })
 }
 
 const populatePasswordField = (password: string = faker.internet.password()): void => {
   const passwordInput = screen.getByTestId('password')
-  fireEvent.input(passwordInput, { target: { value: password}})
+  fireEvent.input(passwordInput, { target: { value: password } })
 }
 
 const testStatusForField = (fieldName: string, validationError?: string): void => {
@@ -93,7 +93,7 @@ describe('Login', () => {
 
   test('should start with initial state', () => {
     const validationError = faker.random.words()
-    makeSut({validationError})
+    makeSut({ validationError })
     testErrorWrapChildCount(0)
     testButtonIsDisabled('button', true, true)
     testStatusForField('email', validationError)
@@ -102,14 +102,14 @@ describe('Login', () => {
 
   test('should show email error if Validation fails', () => {
     const validationError = faker.random.words()
-    makeSut({validationError})
+    makeSut({ validationError })
     populateEmailField()
     testStatusForField('email', validationError)
   })
 
   test('should show password error if Validation fails', () => {
     const validationError = faker.random.words()
-    makeSut({validationError})
+    makeSut({ validationError })
     populatePasswordField()
     testStatusForField('password', validationError)
   })
@@ -125,20 +125,20 @@ describe('Login', () => {
     populatePasswordField()
     testStatusForField('password')
   })
-  
+
   test('should enable submit button if form is valid', () => {
     makeSut()
     populateEmailField()
     populatePasswordField()
     testButtonIsDisabled('button', false, true)
   })
-  
+
   test('should show spinner on submit', async () => {
     makeSut()
     await simulateValidSubmit()
     testExistedElement('spinner')
   })
-  
+
   test('should call Authentication with correct values', async () => {
     const { authenticationSpy } = makeSut()
     const email = faker.internet.email()
@@ -149,17 +149,17 @@ describe('Login', () => {
       password
     })
   })
-  
+
   test('should call once Authentication', async () => {
     const { authenticationSpy } = makeSut()
     await simulateValidSubmit()
     await simulateValidSubmit()
     expect(authenticationSpy.callsCount).toBe(1)
   })
-  
+
   test('should not call Authentication if form is not valid', async () => {
     const validationError = faker.random.words()
-    const { authenticationSpy } = makeSut({validationError})
+    const { authenticationSpy } = makeSut({ validationError })
     populateEmailField()
     await simulateValidSubmit()
     expect(authenticationSpy.callsCount).toBe(0)

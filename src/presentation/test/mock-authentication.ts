@@ -1,6 +1,6 @@
-import { AccountModel } from "@/domain/models"
-import { mockAccountModel } from "@/domain/test"
-import { Authentication } from "@/domain/usecases"
+import { AccountModel } from '@/domain/models'
+import { mockAccountModel } from '@/domain/test'
+import { Authentication } from '@/domain/usecases'
 
 export class AuthenticationSpy implements Authentication {
   account = mockAccountModel()

@@ -1,5 +1,3 @@
-
-
 export type HttpResponse<T> = {
   statusCode: HttpResponse.HttpStatusCode
   body?: HttpResponse.Body<T>

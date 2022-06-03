@@ -56,9 +56,8 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
         mainError: error.message
       })
     }
-
   }
- 
+
   return (
     <div className={Styles.login}>
       <LoginHeader />
@@ -69,12 +68,12 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
           <Input type="password" name="password" placeholder="Digite su password" />
           <button role="button" type="submit" className={Styles.submit} disabled={disabledButton}>Entrar</button>
           <Link data-testid="signup" to="/signup" className={Styles.link}>Crear cuenta</Link>
-          <FormStatus  />
+          <FormStatus />
         </form>
       </Context.Provider>
       <Footer />
     </div>
   )
-};
+}
 
 export default Login
